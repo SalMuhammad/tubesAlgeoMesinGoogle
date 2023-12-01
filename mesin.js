@@ -17,7 +17,7 @@ let dataMentah = [
     *Android*: https://bit.ly/SiloamPS`
   },
   {
-    judul: 'harga cabai',
+    judul: 'jual mobil',
     paragraps: 'Lorem ipsum mobil dolor sit amet consectetur adipisicing nyata elit. Accusamus inventore, molestiae'
   },
   {
@@ -70,7 +70,30 @@ $('#vektor').addEventListener('input', ()=> { //ketika tag iput di ketikan
       } 
     })
   }
-  console.log(resultCari)
+  const hasil = []
+  resultCari.forEach(data => {
+    const existingIndex = hasil.findIndex(item => item.index === data.index)
+    if(existingIndex !== -1) {
+      hasil[existingIndex].jumlahV += data.jumlahV
+    } else hasil.push({...data})
+  })
+  hasil.sort((a,b) => b.jumlahV - a.jumlahV)
+  
+  let el = ''
+  hasil.map(hs => {
+    el += `
+    <div class="bg-green-200 rounded-md max-h-20 leading-4 p-2">
+      <h2 class="mb-2 font-bold">${dataMentah[hs.index].judul}</h2>
+      <p>${dataMentah[hs.index].paragraps}</p>
+    </div>
+    `
+  })
+$('.bagian-artikel').innerHTML = el
+  
+  // for(let i = 0; i< hasil.length; i++){ 
+  //   console.log(dataMentah[hasil[i].index])
+  // }
+  
 })
 
 class artikelParameter {
